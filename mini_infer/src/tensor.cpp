@@ -1,5 +1,5 @@
 #include "tensor.hpp"
-
+#include <cmath>
 Tensor::Tensor() {}
 
 Tensor::Tensor(std::vector<int> shape) {
@@ -134,6 +134,16 @@ Tensor linear(const Tensor& X, const Tensor& W, const Tensor& b) {
         for (int j = 0; j < out_features; j++) {
             Y.at(i, j) += b.at(j);
         }
+    }
+
+    return Y;
+}
+Tensor silu(const Tensor& X) {
+    Tensor Y(X.shape);
+
+    for (int i = 0; i < X.numel(); i++) {
+        float x = X.data[i];
+        Y.data[i] = x / (1.0f + std::exp(-x));
     }
 
     return Y;

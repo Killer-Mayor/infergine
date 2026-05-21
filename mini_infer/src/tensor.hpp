@@ -22,3 +22,4 @@ public:
 };
 Tensor matmul(const Tensor& A, const Tensor& B);
 Tensor linear(const Tensor& X, const Tensor& W, const Tensor& b);
+Tensor silu(const Tensor& X);
