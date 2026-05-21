@@ -242,3 +242,16 @@ Tensor rmsnorm(const Tensor& X, const Tensor& weight, float eps) {
 
     return Y;
 }
+Tensor elem_add(const Tensor& A, const Tensor& B) {
+    if (A.shape != B.shape) {
+        throw std::runtime_error("elem_add shape mismatch");
+    }
+
+    Tensor C(A.shape);
+
+    for (int i = 0; i < A.numel(); i++) {
+        C.data[i] = A.data[i] + B.data[i];
+    }
+
+    return C;
+}
