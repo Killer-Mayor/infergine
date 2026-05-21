@@ -30,3 +30,4 @@ Tensor mlp(
     const Tensor& W2,
     const Tensor& W3
 );
+Tensor rmsnorm(const Tensor& X, const Tensor& weight, float eps = 1e-5f);

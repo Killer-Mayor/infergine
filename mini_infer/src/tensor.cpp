@@ -210,3 +210,35 @@ Tensor mlp(
 
     return out;
 }
+Tensor rmsnorm(const Tensor& X, const Tensor& weight, float eps) {
+    if (X.shape.size() != 2 || weight.shape.size() != 1) {
+        throw std::runtime_error("rmsnorm expects X to be 2D and weight to be 1D");
+    }
+
+    int rows = X.shape[0];
+    int cols = X.shape[1];
+
+    if (weight.shape[0] != cols) {
+        throw std::runtime_error("rmsnorm weight size must match X columns");
+    }
+
+    Tensor Y(X.shape);
+
+    for (int i = 0; i < rows; i++) {
+        float sum_sq = 0.0f;
+
+        for (int j = 0; j < cols; j++) {
+            float x = X.at(i, j);
+            sum_sq += x * x;
+        }
+
+        float mean_sq = sum_sq / cols;
+        float rms = std::sqrt(mean_sq + eps);
+
+        for (int j = 0; j < cols; j++) {
+            Y.at(i, j) = (X.at(i, j) / rms) * weight.at(j);
+        }
+    }
+
+    return Y;
+}
