@@ -17,5 +17,8 @@ public:
     float& at(int i, int j);
     const float& at(int i, int j) const;
     void print_2d() const;
+    float& at(int i);
+    const float& at(int i) const;
 };
 Tensor matmul(const Tensor& A, const Tensor& B);
+Tensor linear(const Tensor& X, const Tensor& W, const Tensor& b);

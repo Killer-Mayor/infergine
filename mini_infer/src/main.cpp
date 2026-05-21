@@ -1,32 +1,34 @@
 #include "tensor.hpp"
 
 int main() {
-    Tensor A({2, 3});
-    Tensor B({3, 2});
+    Tensor X({2, 3});
+    Tensor W({3, 2});
+    Tensor b({2});
 
-    A.at(0, 0) = 1;
-    A.at(0, 1) = 2;
-    A.at(0, 2) = 3;
+    X.at(0, 0) = 1;
+    X.at(0, 1) = 2;
+    X.at(0, 2) = 3;
 
-    A.at(1, 0) = 4;
-    A.at(1, 1) = 5;
-    A.at(1, 2) = 6;
+    X.at(1, 0) = 4;
+    X.at(1, 1) = 5;
+    X.at(1, 2) = 6;
 
-    B.at(0, 0) = 7;
-    B.at(0, 1) = 8;
+    W.at(0, 0) = 7;
+    W.at(0, 1) = 8;
 
-    B.at(1, 0) = 9;
-    B.at(1, 1) = 10;
+    W.at(1, 0) = 9;
+    W.at(1, 1) = 10;
 
-    B.at(2, 0) = 11;
-    B.at(2, 1) = 12;
+    W.at(2, 0) = 11;
+    W.at(2, 1) = 12;
 
-    Tensor C = matmul(A, B);
+    b.at(0) = 1;
+    b.at(1) = 2;
 
-    C.print_shape();
+    Tensor Y = linear(X, W, b);
 
-    std::cout << C.at(0, 0) << " " << C.at(0, 1) << std::endl;
-    std::cout << C.at(1, 0) << " " << C.at(1, 1) << std::endl;
-    C.print_2d();
+    Y.print_shape();
+    Y.print_2d();
+
     return 0;
 }
