@@ -14,4 +14,6 @@ public:
 
     int numel() const;
     void print_shape() const;
+    float& at(int i, int j);
+    const float& at(int i, int j) const;
 };

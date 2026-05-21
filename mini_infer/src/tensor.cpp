@@ -36,3 +36,32 @@ void Tensor::print_shape() const {
 
     std::cout << "]" << std::endl;
 }
+float& Tensor::at(int i, int j) {
+    if (shape.size() != 2) {
+        throw std::runtime_error("Tensor is not 2D");
+    }
+
+    int rows = shape[0];
+    int cols = shape[1];
+
+    if (i < 0 || i >= rows || j < 0 || j >= cols) {
+        throw std::out_of_range("Tensor index out of range");
+    }
+
+    return data[i * cols + j];
+}
+
+const float& Tensor::at(int i, int j) const {
+    if (shape.size() != 2) {
+        throw std::runtime_error("Tensor is not 2D");
+    }
+
+    int rows = shape[0];
+    int cols = shape[1];
+
+    if (i < 0 || i >= rows || j < 0 || j >= cols) {
+        throw std::out_of_range("Tensor index out of range");
+    }
+
+    return data[i * cols + j];
+}
