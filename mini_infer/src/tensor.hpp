@@ -23,3 +23,10 @@ public:
 Tensor matmul(const Tensor& A, const Tensor& B);
 Tensor linear(const Tensor& X, const Tensor& W, const Tensor& b);
 Tensor silu(const Tensor& X);
+Tensor elem_mul(const Tensor& A, const Tensor& B);
+Tensor mlp(
+    const Tensor& X,
+    const Tensor& W1,
+    const Tensor& W2,
+    const Tensor& W3
+);

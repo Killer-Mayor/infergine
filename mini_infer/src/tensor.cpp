@@ -148,6 +148,7 @@ Tensor silu(const Tensor& X) {
 
     return Y;
 }
+
 Tensor matmul(const Tensor& A, const Tensor& B) {
     if (A.shape.size() != 2 || B.shape.size() != 2) {
         throw std::runtime_error("matmul only supports 2D tensors");
@@ -178,4 +179,34 @@ Tensor matmul(const Tensor& A, const Tensor& B) {
     }
 
     return C;
+}
+Tensor elem_mul(const Tensor& A, const Tensor& B) {
+    if (A.shape != B.shape) {
+        throw std::runtime_error("elem_mul shape mismatch");
+    }
+
+    Tensor C(A.shape);
+
+    for (int i = 0; i < A.numel(); i++) {
+        C.data[i] = A.data[i] * B.data[i];
+    }
+
+    return C;
+}
+Tensor mlp(
+    const Tensor& X,
+    const Tensor& W1,
+    const Tensor& W2,
+    const Tensor& W3
+) {
+    Tensor gate = matmul(X, W1);
+    gate = silu(gate);
+
+    Tensor up = matmul(X, W3);
+
+    Tensor hidden = elem_mul(gate, up);
+
+    Tensor out = matmul(hidden, W2);
+
+    return out;
 }
